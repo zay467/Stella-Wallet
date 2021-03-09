@@ -27,8 +27,8 @@ class _TokenState extends State<Token> {
   // String assertInfo = "Asset code must be between 1 and 4 characters long.";
   Future<void> checkAsset(String accountId) async {
     try {
-      var response = await http.get(
-          "https://horizon-testnet.stellar.org/assets?asset_issuer=${accountId}");
+      var response = await http
+          .get("https://horizon.stellar.org/assets?asset_issuer=${accountId}");
       var decodeData = await jsonDecode(response.body);
       setState(() {
         asset = decodeData["_embedded"]["records"];

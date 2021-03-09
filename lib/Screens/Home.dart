@@ -78,7 +78,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     // final accountProvider = Provider.of<AccountProvider>(context);
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(
+          // title: accInfo != null ? accInfo["accName"] : "Wallet",
+          ),
       endDrawer: MyDrawer(
         accInfo: accInfo,
       ),

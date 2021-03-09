@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  var title;
+  MyAppBar({this.title});
   @override
   Size get preferredSize => const Size.fromHeight(60);
 
@@ -9,7 +11,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.black,
       automaticallyImplyLeading: false,
-      title: FittedBox(child: Text("Wallet")),
+      title: FittedBox(child: Text(title ?? "Wallet")),
     );
   }
 }
