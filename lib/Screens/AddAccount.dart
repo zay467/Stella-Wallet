@@ -140,22 +140,22 @@ class _AddAccountState extends State<AddAccount> {
                   ),
                 ),
               ),
-              if (editAccount) ...[
-                RaisedButton(
-                  // textColor: Colors.white,
-                  color: Colors.black,
-                  onPressed: () {
-                    FriendBot.fundTestAccount(publicKeyCon.text);
-                    Navigator.of(context).pushReplacementNamed("/switchAcc",
-                        arguments: {"data": widget.accInfo});
-                  },
-                  // color: Colors.black,
-                  child: Text(
-                    "Fund this Account",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
-              ],
+              // if (editAccount) ...[
+              //   RaisedButton(
+              //     // textColor: Colors.white,
+              //     color: Colors.black,
+              //     onPressed: () {
+              //       FriendBot.fundTestAccount(publicKeyCon.text);
+              //       Navigator.of(context).pushReplacementNamed("/switchAcc",
+              //           arguments: {"data": widget.accInfo});
+              //     },
+              //     // color: Colors.black,
+              //     child: Text(
+              //       "Fund this Account",
+              //       style: TextStyle(color: Colors.white, fontSize: 16),
+              //     ),
+              //   ),
+              // ],
               Center(
                 child: FlatButton(
                   onPressed: () {
