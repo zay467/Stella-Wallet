@@ -3,17 +3,17 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-class Account {
+class Accountdb {
   static final _dbName = 'wallet.db';
   static final _dbVersion = 1;
-  static final _tableName = 'account';
+  static final _tableName = 'walletAccount';
   static final idNum = "_id";
   static final publicKey = "publicKey";
   static final privateKey = "privateKey";
   static final accName = "accName";
 
-  Account._privateConstructor();
-  static final Account instance = Account._privateConstructor();
+  Accountdb._privateConstructor();
+  static final Accountdb instance = Accountdb._privateConstructor();
 
   static Database _database;
   Future<Database> get database async {
@@ -34,7 +34,7 @@ class Account {
     $idNum INTEGER PRIMARY KEY,
     $privateKey TEXT NOT NULL,
     $publicKey TEXT NOT NULL,
-    $accName TEXT NOT NULL,
+    $accName TEXT NOT NULL
     )
     ''');
   }

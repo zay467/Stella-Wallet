@@ -1,11 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:wallet/Database/Accountdb.dart';
 
 class MyDrawer extends StatefulWidget {
+  dynamic accInfo;
   @override
   _MyDrawerState createState() => _MyDrawerState();
+  MyDrawer({this.accInfo});
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  dynamic data = [];
+  void getAccounts() async {
+    dynamic accounts = await Accountdb.instance.read();
+    setState(() {
+      data = accounts;
+    });
+    // print(accounts);
+  }
+
+  void removeAccount(int id) async {
+    Accountdb.instance.delete(id).then((value) => print(value));
+  }
+
+  void insert() async {
+    Accountdb.instance.insert({
+      Accountdb.publicKey: "Fuck",
+      Accountdb.privateKey: "You",
+      Accountdb.accName: "Mal2",
+    }).then((value) => print(value));
+  }
+
+  @override
+  void initState() {
+    getAccounts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -30,11 +60,15 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: [
                     Expanded(
                       child: FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacementNamed(
+                              "/switchAcc",
+                              arguments: {"data": data[i]});
+                        },
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Account ${i + 1}",
+                            data[i][Accountdb.accName],
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -44,7 +78,16 @@ class _MyDrawerState extends State<MyDrawer> {
                       onSelected: (e) {
                         switch (e) {
                           case "Detail":
-                            Navigator.of(context).pushNamed("/addEditAccount");
+                            Navigator.of(context).pushNamed("/detailAccount",
+                                arguments: {
+                                  "data": data[i],
+                                  "accInfo": widget.accInfo
+                                });
+
+                            break;
+                          case "Remove":
+                            removeAccount(data[i][Accountdb.idNum]);
+                            getAccounts();
                             break;
                         }
                       },
@@ -66,7 +109,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   ],
                 ),
               ),
-              itemCount: 16,
+              itemCount: data.length,
             ),
           ),
           Divider(
@@ -76,7 +119,8 @@ class _MyDrawerState extends State<MyDrawer> {
             // textColor: Colors.white,
 
             onPressed: () {
-              Navigator.of(context).pushNamed("/createAccount");
+              Navigator.of(context).pushNamed("/createAccount",
+                  arguments: {"accInfo": widget.accInfo});
             },
             // color: Colors.black,
             child: Align(
@@ -91,7 +135,8 @@ class _MyDrawerState extends State<MyDrawer> {
             // textColor: Colors.white,
 
             onPressed: () {
-              Navigator.of(context).pushNamed("/addEditAccount");
+              Navigator.of(context).pushNamed("/addAccount",
+                  arguments: {"accInfo": widget.accInfo});
             },
             // color: Colors.black,
             child: Align(
@@ -106,7 +151,11 @@ class _MyDrawerState extends State<MyDrawer> {
             // textColor: Colors.white,
 
             onPressed: () {
-              Navigator.of(context).pushNamed("/send");
+              Navigator.of(context).pushNamed("/send", arguments: {
+                "accInfo": widget.accInfo,
+                "type": "native",
+                "operation": "activate"
+              });
             },
             // color: Colors.black,
             child: Align(
@@ -117,19 +166,19 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
           ),
-          FlatButton(
-            // textColor: Colors.white,
-
-            onPressed: () {},
-            // color: Colors.black,
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Fund this Account",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
+          // FlatButton(
+          //   // textColor: Colors.white,
+          //
+          //   onPressed: () {},
+          //   // color: Colors.black,
+          //   child: Align(
+          //     alignment: Alignment.topLeft,
+          //     child: Text(
+          //       "Fund this Account",
+          //       style: TextStyle(fontWeight: FontWeight.bold),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

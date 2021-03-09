@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wallet/Screen/Home.dart';
+import 'package:provider/provider.dart';
+
+import 'package:wallet/Screens/Home.dart';
 import 'package:wallet/route.dart';
 
 void main() {

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wallet/Components/MyAppBar.dart';
-import 'package:wallet/Components/MyDrawer.dart';
+import 'package:wallet/Widgets/MyAppBar.dart';
+import 'package:wallet/Widgets/MyDrawer.dart';
 
 class Receive extends StatefulWidget {
+  dynamic accInfo;
   @override
   _ReceiveState createState() => _ReceiveState();
+  Receive({this.accInfo});
 }
 
 class _ReceiveState extends State<Receive> {
@@ -13,7 +15,7 @@ class _ReceiveState extends State<Receive> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
-      endDrawer: MyDrawer(),
+      endDrawer: MyDrawer(accInfo: widget.accInfo),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: SingleChildScrollView(
@@ -25,14 +27,13 @@ class _ReceiveState extends State<Receive> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Divider(),
-              Text("GB6YX2Y6TOXRPACQFHEOVDLHTJP6FQ7Q4OXU7IDWTOTBSTRP5S2ZES2R"),
+              Text(widget.accInfo["publicKey"]),
               Divider(),
               RaisedButton(
                 color: Colors.black,
                 onPressed: () {
-                  Clipboard.setData(ClipboardData(
-                      text:
-                          "GB6YX2Y6TOXRPACQFHEOVDLHTJP6FQ7Q4OXU7IDWTOTBSTRP5S2ZES2R"));
+                  Clipboard.setData(
+                      ClipboardData(text: widget.accInfo["publicKey"]));
                 },
                 child: Text(
                   "Copy to Clipboard",
