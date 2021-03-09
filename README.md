@@ -1,6 +1,6 @@
 # wallet
 
-Wallet app with stella.
+Wallet app with stella(Testnet).
 
 ## Getting Started
 
