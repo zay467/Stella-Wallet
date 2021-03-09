@@ -18,6 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Key Features
  - Create Account
+ - Fund Account(Testnet only!)
  - Add Account
  - Activate Account
  - Transfer Native
